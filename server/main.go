@@ -4,16 +4,22 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/abhijeetsharan/Go-Notes/config"
+	"github.com/abhijeetsharan/Go-Notes/db"
 	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	fmt.Println("Hello World")
+	config.LoadEnv()
+
+	// Connect to the database
+	db.ConnectDatabase()
+
+	// Initialize Fiber app
 	app := fiber.New()
 
-	app.Get("/", func (c *fiber.Ctx) error  {
-		return c.Status(200).JSON(fiber.Map{"msg": "Hello World"})
-	})
-
-	log.Fatal(app.Listen(":4000"))
+	// Start the server
+	port := ":4000"
+	fmt.Println("Server running on port", port)
+	log.Fatal(app.Listen(port))
 }
