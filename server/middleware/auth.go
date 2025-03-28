@@ -8,9 +8,9 @@ import (
 )
 
 // Generate Access Token
-func GenerateAccessToken(username string) (string, error) {
+func GenerateAccessToken(userId string) (string, error) {
 	claims := jwt.MapClaims{
-		"username": username,
+		"user_id": userId,
 		"exp":      time.Now().Add(time.Minute * 15).Unix(), // 15-minute expiry
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -18,9 +18,9 @@ func GenerateAccessToken(username string) (string, error) {
 }
 
 // Generate Refresh Token (longer expiry)
-func GenerateRefreshToken(username string) (string, error) {
+func GenerateRefreshToken(userId string) (string, error) {
 	claims := jwt.MapClaims{
-		"username": username,
+		"user_id": userId,
 		"exp":      time.Now().Add(time.Hour * 72).Unix(), // 3-day expiry
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

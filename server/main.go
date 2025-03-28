@@ -6,6 +6,7 @@ import (
 
 	"github.com/abhijeetsharan/Go-Notes/config"
 	"github.com/abhijeetsharan/Go-Notes/db"
+	"github.com/abhijeetsharan/Go-Notes/routes"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,6 +18,9 @@ func main() {
 
 	// Initialize Fiber app
 	app := fiber.New()
+
+	// Set up routes
+	routes.SetupAuthRoutes(app)
 
 	// Start the server
 	port := ":4000"

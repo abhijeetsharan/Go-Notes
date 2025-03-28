@@ -20,12 +20,10 @@ func ConnectDatabase() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	// ✅ Run AutoMigrate to create tables
 	err = DB.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal("Migration failed:", err)
 	}
-
 
 	fmt.Println("Connected to NeonDB successfully!")
 }
