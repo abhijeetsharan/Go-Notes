@@ -21,6 +21,7 @@ func main() {
 
 	// Set up routes
 	routes.SetupAuthRoutes(app)
+	routes.SetupNoteRoutes(app)
 
 	// Start the server
 	port := ":4000"
