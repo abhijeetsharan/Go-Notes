@@ -13,30 +13,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-xl font-bold">
+    <nav className="bg-gray-400 p-4 shadow-md">
+      <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
+        <Link to="/" className="text-black text-xl font-bold">
           Go Notes
         </Link>
         <div className="space-x-4">
           {isAuthenticated ? (
             <>
-              <span className="text-white">Welcome, {user?.name}!</span>
+              <span className="text-black font-medium">Welcome, {user?.name}!</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-700"
+                className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-700 ml-2"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-white hover:underline">
+              <Link to="/login" className="text-black font-medium hover:underline">
                 Login
               </Link>
               <Link
                 to="/register"
-                className="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-700"
+                className="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-700 ml-2"
               >
                 Register
               </Link>

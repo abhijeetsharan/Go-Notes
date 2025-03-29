@@ -1,26 +1,29 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginSuccess } from "../redux/authSlice";
 import axios from "axios";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
-      await axios.post("http://localhost:4000/api/register", {
+      const response = await axios.post("http://localhost:4000/api/register", {
         name,
         email,
         password,
       });
-
-      navigate("/login"); // Redirect to login after successful registration
+      dispatch(loginSuccess(response.data));
+      localStorage.setItem("token", response.data.token);
+      navigate("/"); // Redirect to login after successful registration
     } catch (err) {
       setError("Failed to register. Try again.");
     }
@@ -60,7 +63,7 @@ const Register = () => {
           required
         />
 
-        <button className="w-full bg-green-500 text-white py-2 rounded mt-2">
+        <button className="w-full bg-blue-500 text-white py-2 rounded mt-2">
           Register
         </button>
 
