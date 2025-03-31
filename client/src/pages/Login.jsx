@@ -19,20 +19,27 @@ const Login = () => {
         try {
             const response = await axios.post("http://localhost:4000/api/login", { email, password });
 
-            const { token, user } = response.data;
+            console.log("Login Response:", response.data); // Debugging
 
-            // Save token to localStorage
-            localStorage.setItem("token", token);
+            const { access_token } = response.data;
 
-            // Set Authorization header globally
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            if (!access_token) {
+                setError("Invalid response from server");
+                return;
+            }
 
             // Dispatch user info to Redux store
-            dispatch(loginSuccess({ token, user }));
+            dispatch(loginSuccess({ token: access_token, user: null }));
 
-            navigate("/");
+            // No need to set localStorage here as it's handled in the reducer
+            
+            // Set Authorization header globally
+            axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+
+            navigate("/dashboard");
         } catch (error) {
-            setError("Invalid email or password", error);
+            console.error("Login Error:", error);
+            setError("Invalid email or password");
         }
     };
 
@@ -61,7 +68,7 @@ const Login = () => {
                     required
                 />
 
-                <button className="w-full bg-blue-500 text-white py-2 rounded mt-2">
+                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded mt-2">
                     Login
                 </button>
 

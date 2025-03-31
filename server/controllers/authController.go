@@ -108,6 +108,11 @@ func Login(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message":      "success",
 		"access_token": accessToken,
+		"user": fiber.Map{
+			"id":    user.Id,
+			"name":  user.Name,
+			"email": user.Email,
+		},
 	})
 }
 
